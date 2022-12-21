@@ -1,6 +1,6 @@
 use uuid::Uuid;
 use crate::models::message::Message;
-
+#[derive(Debug)]
 pub struct Room {
     pub id: Uuid,
     pub name: String,

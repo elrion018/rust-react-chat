@@ -2,7 +2,7 @@
 use uuid::Uuid;
 use chrono::{DateTime, Utc};
 use crate::models::user::User;
-
+#[derive(Debug)]
 pub struct Message {
     pub id: Uuid,
     pub user: User,
