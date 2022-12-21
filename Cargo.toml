@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 uuid = "1.2.2"
+chrono = "0.4.23"
