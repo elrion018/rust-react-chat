@@ -1,1 +1,1 @@
-pub mod uuid;
+pub mod uuid_serde;

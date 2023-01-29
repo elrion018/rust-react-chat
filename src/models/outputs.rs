@@ -26,7 +26,7 @@ impl JoinedOutput {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct LeftOutput {
     user: User,
 }
@@ -37,7 +37,7 @@ impl LeftOutput {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct SentOutput {
     user: User,
     message: Message,
@@ -50,7 +50,7 @@ impl SentOutput {
 }
 
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct ErrorOutput {
     user: User,
 }

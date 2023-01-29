@@ -1,9 +1,12 @@
 
 use uuid::Uuid;
 use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
 use crate::models::user::User;
-#[derive(Debug)]
+use crate::customs::uuid_serde;
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Message {
+    #[serde(with = "uuid_serde")]
     pub id: Uuid,
     pub user: User,
     pub text: String,
