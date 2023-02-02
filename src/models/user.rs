@@ -1,19 +1,17 @@
-use uuid::Uuid;
 use serde::{Deserialize, Serialize};
-// use crate::customs::uuid_serde;
+use uuid::Uuid;
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct User {
-    // #[serde(with = "uuid_serde")]
     pub id: Uuid,
     pub name: String,
 }
 
 impl User {
     fn new(id: Uuid, name: &str) -> User {
-        User { id, name: name.to_string() }
+        User {
+            id,
+            name: name.to_string(),
+        }
     }
 }
-
-
-

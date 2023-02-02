@@ -1,6 +1,6 @@
-use uuid::Uuid;
 use crate::models::message::Message;
-#[derive(Debug)]
+use uuid::Uuid;
+#[derive(Debug, Default)]
 pub struct Room {
     pub id: Uuid,
     pub name: String,
@@ -9,7 +9,11 @@ pub struct Room {
 
 impl Room {
     fn new(id: Uuid, name: &str) -> Room {
-        Room { id, name: name.to_string(), messages: Vec::new() }
+        Room {
+            id,
+            name: name.to_string(),
+            messages: Vec::new(),
+        }
     }
 
     fn add_message(&mut self, message: Message) {
@@ -18,6 +22,7 @@ impl Room {
     }
 
     fn sort_messages(&mut self) {
-        self.messages.sort_by(|a, b| a.created_at.cmp(&b.created_at));
+        self.messages
+            .sort_by(|a, b| a.created_at.cmp(&b.created_at));
     }
 }

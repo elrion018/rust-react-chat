@@ -1,8 +1,9 @@
-use serde::{Deserialize, Serialize};
-use crate::models::user::User;
 use crate::models::message::Message;
+use crate::models::user::User;
+use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(tag = "type", content = "data")]
 pub enum Output {
     #[serde(rename = "joined")]
@@ -13,12 +14,13 @@ pub enum Output {
     Sent(SentOutput),
     #[serde(rename = "error")]
     Error(ErrorOutput),
+    #[serde(rename = "alive")]
+    Alive,
 }
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-struct JoinedOutput {
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+pub struct JoinedOutput {
     pub user: User,
 }
-
 
 impl JoinedOutput {
     pub fn new(user: User) -> JoinedOutput {
@@ -26,8 +28,8 @@ impl JoinedOutput {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-struct LeftOutput {
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+pub struct LeftOutput {
     user: User,
 }
 
@@ -37,8 +39,8 @@ impl LeftOutput {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-struct SentOutput {
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+pub struct SentOutput {
     user: User,
     message: Message,
 }
@@ -49,14 +51,21 @@ impl SentOutput {
     }
 }
 
-
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-struct ErrorOutput {
-    user: User,
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
+#[serde(tag = "code")]
+pub enum ErrorOutput {
+    #[serde(rename = "invalid-name")]
+    InvalidName,
+    #[serde(rename = "invalid-message")]
+    InvalidMessage,
+    #[serde(rename = "failed-to-join")]
+    FailedToJoin,
+    #[serde(rename = "failed-to-send")]
+    FailedToSend,
 }
 
-impl ErrorOutput {
-    pub fn new(user: User) -> ErrorOutput {
-        ErrorOutput { user }
-    }
+#[derive(Debug, Clone)]
+pub struct OutputParcel {
+    pub client_id: Uuid,
+    pub output: Output,
 }
