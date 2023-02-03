@@ -69,3 +69,9 @@ pub struct OutputParcel {
     pub client_id: Uuid,
     pub output: Output,
 }
+
+impl OutputParcel {
+    pub fn new(client_id: Uuid, output: Output) -> OutputParcel {
+        OutputParcel { client_id, output }
+    }
+}
